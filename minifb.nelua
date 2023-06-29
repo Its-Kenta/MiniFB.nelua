@@ -1,0 +1,228 @@
+##[[
+cinclude "MiniFB.h"
+linklib "minifb"
+linklib "GL"
+linklib "X11"
+]]
+
+-- MiniFB Namespace
+global mfb = @record{}
+
+global mfb.updateState: type <cimport'mfb_update_state', cinclude'<MiniFB.h>',nodecl,using> = @enum(cint){
+  OK = 0,
+  EXIT = -1,
+  INVALID_WINDOW = -2,
+  INVALID_BUFFER = -3,
+  INTERNAL_ERROR = -4
+}
+
+global mfb.mouseButton: type <cimport'mfb_mouse_button', cinclude'<MiniFB.h>',nodecl,using> = @enum(cint){
+  BTN_0 = 0,
+  BTN_1 = 1,
+  BTN_2 = 2,
+  BTN_3 = 3,
+  BTN_4 = 4,
+  BTN_5 = 5,
+  BTN_6 = 6,
+  BTN_7 = 7
+}
+
+global mfb.key: type <cimport'mfb_key', cinclude'<MiniFB.h>',nodecl,using> = @enum(cint){
+  UNKNOWN = -1,
+  SPACE = 32,
+  APOSTROPHE = 39,
+  COMMA = 44,
+  MINUS = 45,
+  PERIOD = 46,
+  SLASH = 47,
+  KEY_0 = 48,
+  KEY_1 = 49,
+  KEY_2 = 50,
+  KEY_3 = 51,
+  KEY_4 = 52,
+  KEY_5 = 53,
+  KEY_6 = 54,
+  KEY_7 = 55,
+  KEY_8 = 56,
+  KEY_9 = 57,
+  SEMICOLON = 59,
+  EQUAL = 61,
+  A = 65,
+  B = 66,
+  C = 67,
+  D = 68,
+  E = 69,
+  F = 70,
+  G = 71,
+  H = 72,
+  I = 73,
+  J = 74,
+  K = 75,
+  L = 76,
+  M = 77,
+  N = 78,
+  O = 79,
+  P = 80,
+  Q = 81,
+  R = 82,
+  S = 83,
+  T = 84,
+  U = 85,
+  V = 86,
+  W = 87,
+  X = 88,
+  Y = 89,
+  Z = 90,
+  LEFT_BRACKET = 91,
+  BACKSLASH = 92,
+  RIGHT_BRACKET = 93,
+  GRAVE_ACCENT = 96,
+  WORLD_1 = 161,
+  WORLD_2 = 162,
+  ESCAPE = 256,
+  ENTER = 257,
+  TAB = 258,
+  BACKSPACE = 259,
+  INSERT = 260,
+  DELETE = 261,
+  RIGHT = 262,
+  LEFT = 263,
+  DOWN = 264,
+  UP = 265,
+  PAGE_UP = 266,
+  PAGE_DOWN = 267,
+  HOME = 268,
+  END = 269,
+  CAPS_LOCK = 280,
+  SCROLL_LOCK = 281,
+  NUM_LOCK = 282,
+  PRINT_SCREEN = 283,
+  PAUSE = 284,
+  F1 = 290,
+  F2 = 291,
+  F3 = 292,
+  F4 = 293,
+  F5 = 294,
+  F6 = 295,
+  F7 = 296,
+  F8 = 297,
+  F9 = 298,
+  F10 = 299,
+  F11 = 300,
+  F12 = 301,
+  F13 = 302,
+  F14 = 303,
+  F15 = 304,
+  F16 = 305,
+  F17 = 306,
+  F18 = 307,
+  F19 = 308,
+  F20 = 309,
+  F21 = 310,
+  F22 = 311,
+  F23 = 312,
+  F24 = 313,
+  F25 = 314,
+  KP_0 = 320,
+  KP_1 = 321,
+  KP_2 = 322,
+  KP_3 = 323,
+  KP_4 = 324,
+  KP_5 = 325,
+  KP_6 = 326,
+  KP_7 = 327,
+  KP_8 = 328,
+  KP_9 = 329,
+  KP_DECIMAL = 330,
+  KP_DIVIDE = 331,
+  KP_MULTIPLY = 332,
+  KP_SUBTRACT = 333,
+  KP_ADD = 334,
+  KP_ENTER = 335,
+  KP_EQUAL = 336,
+  LEFT_SHIFT = 340,
+  LEFT_CONTROL = 341,
+  LEFT_ALT = 342,
+  LEFT_SUPER = 343,
+  RIGHT_SHIFT = 344,
+  RIGHT_CONTROL = 345,
+  RIGHT_ALT = 346,
+  RIGHT_SUPER = 347,
+  MENU = 348
+}
+
+global mfb.keyMod: type <cimport'mfb_key_mod', cinclude'<MiniFB.h>',nodecl,using> = @enum(cint){
+  MOD_SHIFT = 1,
+  MOD_CONTROL = 2,
+  MOD_ALT = 4,
+  MOD_SUPER = 8,
+  MOD_CAPS_LOCK = 16,
+  MOD_NUM_LOCK = 32
+}
+
+global mfb.windowFlags: type <cimport'mfb_window_flags', cinclude'<MiniFB.h>',nodecl,using> = @enum(cint){
+  RESIZABLE = 1,
+  FULLSCREEN = 2,
+  FULLSCREEN_DESKTOP = 4,
+  BORDERLESS = 8,
+  ALWAYS_ON_TOP = 16
+}
+
+global mfb.window: type <cimport'mfb_window',nodecl, cinclude'<MiniFB.h>',ctypedef> = @record{}
+global mfb.timer: type <cimport'mfb_timer',nodecl, cinclude'<MiniFB.h>',ctypedef> = @record{}
+global mfb.activeFunc: type <cimport'mfb_active_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window, boolean): void
+global mfb.resizeFunc: type <cimport'mfb_resize_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window, cint, cint): void
+global mfb.closeFunc: type <cimport'mfb_close_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window): boolean
+global mfb.keyboardFunc: type <cimport'mfb_keyboard_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window, mfb.key, mfb.keyMod, boolean): void
+global mfb.charInputFunc: type <cimport'mfb_char_input_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window, cuint): void
+global mfb.mouseButtonFunc: type <cimport'mfb_mouse_button_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window, mfb.mouseButton, mfb.keyMod, boolean): void
+global mfb.mouseMoveFunc: type <cimport'mfb_mouse_move_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window, cint, cint): void
+global mfb.mouseScrollFunc: type <cimport'mfb_mouse_scroll_func', cinclude'<MiniFB.h>',nodecl> = @function(*mfb.window, mfb.keyMod, float32, float32): void
+function mfb.open(title: cstring, width: cuint, height: cuint): *mfb.window <cimport'mfb_open', cinclude'<MiniFB.h>',nodecl> end
+function mfb.openEx(title: cstring, width: cuint, height: cuint, flags: cuint): *mfb.window <cimport'mfb_open_ex', cinclude'<MiniFB.h>',nodecl> end
+function mfb.update(window: *mfb.window, buffer: pointer): mfb.updateState <cimport'mfb_update', cinclude'<MiniFB.h>',nodecl> end
+function mfb.updateEx(window: *mfb.window, buffer: pointer, width: cuint, height: cuint): mfb.updateState <cimport'mfb_update_ex', cinclude'<MiniFB.h>',nodecl> end
+function mfb.updateEvents(window: *mfb.window): mfb.updateState <cimport'mfb_update_events', cinclude'<MiniFB.h>',nodecl> end
+function mfb.close(window: *mfb.window): void <cimport'mfb_close', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setUserData(window: *mfb.window, userData: pointer): void <cimport'mfb_set_user_data', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getUserData(window: *mfb.window): pointer <cimport'mfb_get_user_data', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setViewport(window: *mfb.window, offsetX: cuint, offsetY: cuint, width: cuint, height: cuint): boolean <cimport'mfb_set_viewport', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setViewportBestFit(window: *mfb.window, oldWidth: cuint, oldHeight: cuint): boolean <cimport'mfb_set_viewport_best_fit', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getMonitorDPI(window: *mfb.window, dpiX: *float32, dpiY: *float32): void <cimport'mfb_get_monitor_dpi', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getMonitorScale(window: *mfb.window, scaleX: *float32, scaleY: *float32): void <cimport'mfb_get_monitor_scale', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setActiveCallback(window: *mfb.window, callback: mfb.activeFunc): void <cimport'mfb_set_active_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setResizeCallback(window: *mfb.window, callback: mfb.resizeFunc): void <cimport'mfb_set_resize_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setCloseCallback(window: *mfb.window, callback: mfb.closeFunc): void <cimport'mfb_set_close_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setKeyboardCallback(window: *mfb.window, callback: mfb.keyboardFunc): void <cimport'mfb_set_keyboard_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setCharInputCallback(window: *mfb.window, callback: mfb.charInputFunc): void <cimport'mfb_set_char_input_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setMouseButtonCallback(window: *mfb.window, callback: mfb.mouseButtonFunc): void <cimport'mfb_set_mouse_button_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setMouseMoveCallback(window: *mfb.window, callback: mfb.mouseMoveFunc): void <cimport'mfb_set_mouse_move_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setMouseScrollCallback(window: *mfb.window, callback: mfb.mouseScrollFunc): void <cimport'mfb_set_mouse_scroll_callback', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getKeyName(key: mfb.key): cstring <cimport'mfb_get_key_name', cinclude'<MiniFB.h>',nodecl> end
+function mfb.isWindowActive(window: *mfb.window): boolean <cimport'mfb_is_window_active', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getWindowWidth(window: *mfb.window): cuint <cimport'mfb_get_window_width', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getWindowHeight(window: *mfb.window): cuint <cimport'mfb_get_window_height', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getMouseX(window: *mfb.window): cint <cimport'mfb_get_mouse_x', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getMouseY(window: *mfb.window): cint <cimport'mfb_get_mouse_y', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getMouseScrollX(window: *mfb.window): float32 <cimport'mfb_get_mouse_scroll_x', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getMouseScrollY(window: *mfb.window): float32 <cimport'mfb_get_mouse_scroll_y', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getMouseButtonBuffer(window: *mfb.window): *uint8 <cimport'mfb_get_mouse_button_buffer', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getKeyBuffer(window: *mfb.window): *uint8 <cimport'mfb_get_key_buffer', cinclude'<MiniFB.h>',nodecl> end
+function mfb.setTargetFPS(fps: uint32): void <cimport'mfb_set_target_fps', cinclude'<MiniFB.h>',nodecl> end
+function mfb.getTargetFPS(): cuint <cimport'mfb_get_target_fps', cinclude'<MiniFB.h>',nodecl> end
+function mfb.waitSync(window: *mfb.window): boolean <cimport'mfb_wait_sync', cinclude'<MiniFB.h>',nodecl> end
+function mfb.timerCreate(): *mfb.timer <cimport'mfb_timer_create', cinclude'<MiniFB.h>',nodecl> end
+function mfb.timerDestroy(tmr: *mfb.timer): void <cimport'mfb_timer_destroy', cinclude'<MiniFB.h>',nodecl> end
+function mfb.timerReset(tmr: *mfb.timer): void <cimport'mfb_timer_reset', cinclude'<MiniFB.h>',nodecl> end
+function mfb.timerNow(tmr: *mfb.timer): float64 <cimport'mfb_timer_now', cinclude'<MiniFB.h>',nodecl> end
+function mfb.timerDelta(tmr: *mfb.timer): float64 <cimport'mfb_timer_delta', cinclude'<MiniFB.h>',nodecl> end
+function mfb.timerGetFrequency(): float64 <cimport'mfb_timer_get_frequency', cinclude'<MiniFB.h>',nodecl> end
+function mfb.timerGetResolution(): float64 <cimport'mfb_timer_get_resolution', cinclude'<MiniFB.h>',nodecl> end
+
+function mfb.ARGB(a: uint32, r: uint32, g: uint32, b: uint32): uint32 <inline>
+  return (a << 24) | (r << 16) | (g << 8) | (b)
+end
+
+function mfb.RGB(r: uint32, g: uint32, b: uint32): uint32 <inline>
+  return (r << 16) | (g << 8) | (b)
+end
