@@ -22,8 +22,8 @@
 
 - [x] Linux
 - [X] Windows
-- [X] MacOS
-- [x] WASM
+- [X] MacOS - Not tested. Might require tweaks in minifb.nelua
+- [x] WASM - Not tested. Might require tweaks in minifb.nelua
 
 ## Dependencies
 

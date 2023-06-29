@@ -1,8 +1,19 @@
 ##[[
 cinclude "MiniFB.h"
-linklib "minifb"
-linklib "GL"
-linklib "X11"
+local compiler = require 'nelua.ccompiler'
+if ccinfo.is_linux or ccinfo.is_gnu_linux then
+  linklib "minifb"
+  linklib "GL"
+  linklib "X11"
+end
+
+if ccinfo.is_windows then
+  linklib "opengl32"
+  linklib "gdi32"
+  linklib "winmm"
+  linklib "pthread"
+end
+
 ]]
 
 -- MiniFB Namespace
