@@ -21,7 +21,7 @@ end
 
 drawSquare(&buffer, BUFF_SIZE)
 
-local window: *mfb.window = mfb.open("HighRes", BUFF_SIZE / 2, BUFF_SIZE / 2)
+local window: *mfb.window = mfb.open("Rectangle Example", BUFF_SIZE / 2, BUFF_SIZE / 2)
 local state: mfb.updateState
 
 repeat
