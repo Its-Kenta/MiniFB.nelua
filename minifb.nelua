@@ -8,10 +8,16 @@ if ccinfo.is_linux or ccinfo.is_gnu_linux then
 end
 
 if ccinfo.is_windows then
+  linklib "minifb"
   linklib "opengl32"
   linklib "gdi32"
   linklib "winmm"
   linklib "pthread"
+end
+
+if ccinfo.is_macos then
+  linklib "minifb"
+  cflags "-framework Cocoa -framework Metal -framework QuartzCore -framework CoreFoundation -framework CoreGraphics -framework MetalKit"
 end
 
 ]]
